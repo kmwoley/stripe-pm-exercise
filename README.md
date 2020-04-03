@@ -1,1 +1,0 @@
-# stripe-pm-exercise
