@@ -56,7 +56,7 @@ At this time, your browser should launch to [http://localhost:3000](http://local
 # Usage
 Stripe provides [test Credit Card numbers](https://stripe.com/docs/payments/accept-a-payment#web-test-integration) to demonstrate the various payment success/failure conditions. Use these Credit Cards to complete a payment.
 
-The Server logs relevent payment activity (intent creation, order information, success/failure, and payment intent events) in the `/server` directory in `payments.log`
+The Server logs relevant payment activity (intent creation, order information, success/failure, and payment intent events) in the `/server` directory in `payments.log`
 
 # Enjoy!
 Feel free to file issues for bugs and suggested improvements.
