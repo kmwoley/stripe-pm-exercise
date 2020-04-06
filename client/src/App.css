@@ -1,25 +1,96 @@
+html, body {
+  margin: 0;
+  background-color: #282c34;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+  width: 90%;
+  margin-top: 4%;
+  margin-bottom: 4%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h1 {
+  font: 2em "Helvetica Neue", Helvetica, sans-serif;
+  margin-bottom: .4em;
+  color: rgb(83, 104, 138);
+}
+
+h2 {
+  font: 1em "Helvetica Neue", Helvetica, sans-serif;;
+  color: grey;
+  margin-bottom: .2em;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
 .App {
   background-color: #282c34;
   color: white;
   width: auto;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   text-align: left;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(5px + 2vmin);
+}
+
+.ProductList {
+  font: .8em "Helvetica Neue", Helvetica, sans-serif;
+  margin-bottom: 1em;
+}
+
+.ProductForm {
+  text-align: center;
+}
+
+.ProductSelectInput {
+  font-size: .8em;
+}
+
+.TextInput {
+  font-size: .6em;
+  margin-bottom: .5em;
+  text-align: left;
+}
+
+.TextInputGroup {
+  text-align: left;
+  align-items: left;
+  font-size: 1em;
+  margin: .5em 0 .5em 0;
+} 
+
+.TextInputGroupItem {
+  display:inline-block;
+  width: 50%; 
+  text-align: left;
+}
+
+.TextInputField {
+  width: 90%;
+  font-size: .8em;
 }
 
 .CheckoutForm {
-  align-items: center;
-  background-color: grey;
-  width: 90%;
+  text-align: center;
+  text-align: left;
 }
 
 .CardForm {
-  margin: auto;
-  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 1em 0 1em 0em;
 }
 
 .App-link {
@@ -27,15 +98,23 @@
 }
 
 .Error {
+  margin-top: .5em;
   color: red;
 }
 
 .Success {
-  color: purple;
+  color: blueviolet;
 }
 
-.BuyAnother {
+.OrderButton {
+  font-size: .8em;
+  margin-top: .5em;
+}
+
+.BuyAnotherButton {
   display: none;
+  font-size: .8em;
+  margin-top: .5em;
 }
 
 /**
@@ -48,7 +127,6 @@
 
 .StripeElement {
   padding: 10px 12px;
-  width: 90%;
   color: #32325d;
   background-color: white;
   border: 1px solid transparent;

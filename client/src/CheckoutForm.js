@@ -154,21 +154,37 @@ export default function CheckoutForm(props) {
   };
 
   return (
-    <div className="CheckoutForm">
-      <form onSubmit={handleSubmit} id="card-form">
-          <label>Name:
-            <input type="text" value={name} onChange={handleNameChange}/>
-          </label>
-          <label>Email Address:
-            <input type="text" value={email} onChange={handleEmailChange}/>
-          </label>
-          <label>Purchase total: ${props.price}</label>
+    <div>
+      <div className="CheckoutForm" id="card-form">
+        <div>
+          <h2>Purchase total: ${props.price} USD</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="TextInputGroup">
+            <div className="TextInputGroupItem">
+              <label>Name:
+                <input type="text" value={name} className="TextInputField" onChange={handleNameChange}/>
+              </label>
+            </div>
+            <div className="TextInputGroupItem">
+              <label>Email Address:
+                <input type="text" value={email} className="TextInputField" onChange={handleEmailChange}/>
+              </label>
+            </div>
+          </div>
           <CardSection />
-          <span className="Error" id="card-form-error"></span>
-          <button disabled={!stripe || processingOrder}>Place order</button>
-      </form>
-      <span className="Success" id="card-success"></span>
-      <button className = "BuyAnother" id="buy-another" onClick={handleReset}>Buy one more?</button>
+          <div className="Error">
+            <span id="card-form-error"></span>
+          </div>
+          <button disabled={!stripe || processingOrder} className="OrderButton">Place order</button>
+        </form>
+      </div>
+      <div className="Success">
+        <span  id="card-success"></span>
+      </div>
+      <div>
+        <button className="BuyAnotherButton" id="buy-another" onClick={handleReset}>Buy one more?</button>
+      </div>
     </div>
   );
 }

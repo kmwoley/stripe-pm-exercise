@@ -34,16 +34,14 @@ export default function Products(props) {
 
   return (
     <div>
-      <ul>
+      <ul className="ProductList">
         { products ? products.map(item => 
           <li key={item.description}>{item.description} : ${item.price}</li>
         ) : ""}
       </ul>
-      <form>
-        <label>
-          Select product:
-        </label>
-        <select value={description ? description : ''} onChange={handleChange}>
+      <h2>Select a product to purchase:</h2>
+      <form className="ProductForm">
+        <select value={description ? description : ''} className="ProductSelectInput" onChange={handleChange}>
           <option value='' key='none'>Select a product</option>
           {products ? products.map(item => <option value={item.description} key={item.description}>{item.description}</option>) : null}
         </select>
