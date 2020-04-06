@@ -59,4 +59,4 @@ Stripe provides [test Credit Card numbers](https://stripe.com/docs/payments/acce
 The Server logs relevent payment activity (intent creation, order information, success/failure, and payment intent events) in the `/server` directory in `payments.log`
 
 # Enjoy!
-Feel free to file issues if you see any.
+Feel free to file issues for bugs and suggested improvements.
