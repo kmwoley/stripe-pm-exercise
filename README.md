@@ -1,7 +1,10 @@
+# Overview
+This app is a demonstration of the Stripe Payment Intents API. The app is a very simple ecommerce website that is selling models of the Star Trek Enterprise that can be 3D printed at home. The user selects which model of the ship they wish to order, enters their payment information, and completes their payment. The application does not actually process the orders (i.e. it does not email 3D models to the customer). The app logs the Stripe Payment activity to a file (`payments.log`) in the project’s `/server` directory.
+
 # About
-This project was created for a Stripe PM interview written test, which is focused on the [Stripe PaymentIntents integration](https://stripe.com/docs/payments/accept-a-payment#web). It contains both a `client` and `server` component . 
+This project was created for a Stripe PM interview written test, which is focused on the [Stripe Payment Intents integration](https://stripe.com/docs/payments/accept-a-payment#web). It contains both a `client` and `server` component. 
 * The `client` was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and then built following the [client-side instructions here](https://stripe.com/docs/payments/accept-a-payment#web).
-* The `server` was bootstraped from [Stripe's node webhooks example](https://github.com/stripe-samples/accept-a-card-payment) implementation.
+* The `server` originated from [Stripe's node webhooks example](https://github.com/stripe-samples/accept-a-card-payment) implementation, then modified for this exercise.
 * The application is configured to run locally; there are no build/deploy instructions at this time.
 
 # Prerequisites
@@ -48,5 +51,12 @@ There three components which must be running for the project to work: the server
 1. Open a new terminal and navigate to the `/client` directory
 1. Run `npm start`
 
-At this time, your browswer should launch to [http://localhost:3000](http://localhost:3000). If it does not, navigate to the page manually.
+At this time, your browser should launch to [http://localhost:3000](http://localhost:3000). If it does not, navigate to the page manually.
 
+# Usage
+Stripe provides [test Credit Card numbers](https://stripe.com/docs/payments/accept-a-payment#web-test-integration) to demonstrate the various payment success/failure conditions. Use these Credit Cards to complete a payment.
+
+The Server logs relevent payment activity (intent creation, order information, success/failure, and payment intent events) in the `/server` directory in `payments.log`
+
+# Enjoy!
+Feel free to file issues if you see any.
