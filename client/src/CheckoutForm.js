@@ -104,7 +104,6 @@ export default function CheckoutForm(props) {
       return;
     }
 
-
     // fixme: hardcoding the currency for development/testing
     const requestData = { 
       description: props.description, 
@@ -114,20 +113,21 @@ export default function CheckoutForm(props) {
       email: email
     };
 
+    // contact the server and create the payment intent
     let clientSecret, orderId;
     try {
       const baseURL = process.env.REACT_APP_SERVER_URL;
       const response = await axios.post(new URL("create-payment-intent", baseURL), requestData);
       clientSecret = response.data.clientSecret;
       orderId = response.data.orderId;
-      console.log(response);
     } catch(error) {
-      const errorMessage = error.response.data.error;
+      const errorMessage = error.response ? error.response.data.error : error;
       console.log(errorMessage);
       setError("Server error. Please retry again later.");
       return;
     }
 
+    // confirm the card payment
     const result = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
@@ -141,6 +141,7 @@ export default function CheckoutForm(props) {
       }
     });
 
+    // handle card payment success/errors
     if (result.error) {
       console.log(result.error.message);
       setError(result.error.message);
