@@ -9,12 +9,15 @@ require("dotenv").config({ path: "./.env" });
 export default function CheckoutForm(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [processingOrder, setProcessingOrder] = useState(false);
 
   const stripe = useStripe();
   const elements = useElements();
 
   const setError = (message) => {
     document.getElementById('card-form-error').innerHTML = message;
+    // any time an error is triggered, order processing stops
+    setProcessingOrder(false);
   }
 
   const setSuccess = (message) => {
@@ -48,8 +51,7 @@ export default function CheckoutForm(props) {
   }
 
   // from: https://www.w3resource.com/javascript/form/email-validation.php
-  function validEmailAddress(inputText)
-  {
+  const validEmailAddress = (inputText) => {
     // eslint-disable-next-line
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(inputText.match(mailformat))
@@ -62,7 +64,24 @@ export default function CheckoutForm(props) {
     }
   }
 
-  const handleSubmit = async (event) => {
+  const validFormInputs = () => {
+    if(!props.description) {
+      setError("Please select a product before ordering.")
+    }
+    // todo: make these field-level errors in the future
+    else if(name.length < 2) {
+      setError("Please provide a valid name.");
+    }
+    else if(!validEmailAddress(email)){
+      setError("Please provide a valid email address.");
+    }
+    else {
+      return true;
+    }
+    return false;
+  }
+  
+  const handleSubmit = async (event) => { 
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -75,23 +94,16 @@ export default function CheckoutForm(props) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
+    } 
+
+    if(validFormInputs()) {
+      // indicate that order processing has begun
+      setProcessingOrder(true);
+    }
+    else {
+      return;
     }
 
-    if(!props.description) {
-      setError("Please select a product before ordering.")
-      return;
-    }
-
-    // very basic form validation 
-    // todo: make these field-level errors in the future
-    if(name.length < 2) {
-      setError("Please provide a valid name.");
-      return;
-    }
-    if(!validEmailAddress(email)){
-      setError("Please provide a valid email address.");
-      return;
-    }
 
     // fixme: hardcoding the currency for development/testing
     const requestData = { 
@@ -152,7 +164,7 @@ export default function CheckoutForm(props) {
           <label>Purchase total: ${props.price}</label>
           <CardSection />
           <span className="Error" id="card-form-error"></span>
-          <button disabled={!stripe}>Place order</button>
+          <button disabled={!stripe || processingOrder}>Place order</button>
       </form>
       <span className="Success" id="card-success"></span>
       <button className = "BuyAnother" id="buy-another" onClick={handleReset}>Buy one more?</button>
