@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+require("dotenv").config({ path: "./.env" });
+
 export default function Products(props) {
   const [products, setProducts] = useState([]);
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    axios.get("http://localhost:4242/products")
+    const baseURL = process.env.REACT_APP_SERVER_URL;
+    axios.get(new URL("products", baseURL))
       .then(res => {
         setProducts(res.data);
       });

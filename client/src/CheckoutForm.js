@@ -4,6 +4,8 @@ import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 
 import CardSection from './CardSection';
 
+require("dotenv").config({ path: "./.env" });
+
 export default function CheckoutForm(props) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -102,7 +104,8 @@ export default function CheckoutForm(props) {
 
     let clientSecret;
     try {
-      const response = await axios.post("http://localhost:4242/create-payment-intent", requestData);
+      const baseURL = process.env.REACT_APP_SERVER_URL;
+      const response = await axios.post(new URL("create-payment-intent", baseURL), requestData);
       clientSecret = response.data.clientSecret;
     } catch(error) {
       const errorMessage = error.response.data.error;
