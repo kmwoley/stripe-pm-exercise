@@ -21,10 +21,10 @@ export default function CheckoutForm(props) {
     document.getElementById('card-success').innerHTML = message;
   }
 
-  const updateFormOnSuccess = () => {
+  const updateFormOnSuccess = (orderId) => {
     var form = document.getElementById("card-form");
     form.style.display = "none";
-    setSuccess("Thank you for your purchase! Your order is on it's way.");
+    setSuccess("Thank you for your purchase! Your order ID is: " + orderId);
 
     var button = document.getElementById("buy-another");
     button.style.display = "block";
@@ -102,11 +102,13 @@ export default function CheckoutForm(props) {
       email: email
     };
 
-    let clientSecret;
+    let clientSecret, orderId;
     try {
       const baseURL = process.env.REACT_APP_SERVER_URL;
       const response = await axios.post(new URL("create-payment-intent", baseURL), requestData);
       clientSecret = response.data.clientSecret;
+      orderId = response.data.orderId;
+      console.log(response);
     } catch(error) {
       const errorMessage = error.response.data.error;
       console.log(errorMessage);
@@ -118,8 +120,12 @@ export default function CheckoutForm(props) {
       payment_method: {
         card: elements.getElement(CardElement),
         billing_details: {
-            name: name
+            name: name,
+            email: email
         },
+        metadata: {
+          orderId: orderId
+        }
       }
     });
 
@@ -129,7 +135,7 @@ export default function CheckoutForm(props) {
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
-        updateFormOnSuccess();
+        updateFormOnSuccess(orderId);
       }
     }
   };
