@@ -1,6 +1,8 @@
 # Overview
 This app is a demonstration of the Stripe Payment Intents API. The app is a very simple ecommerce website that is selling models of the Star Trek Enterprise that can be 3D printed at home. The user selects which model of the ship they wish to order, enters their payment information, and completes their payment. The application does not actually process the orders (i.e. it does not email 3D models to the customer). The app logs the Stripe Payment activity to a file (`payments.log`) in the project’s `/server` directory.
 
+![Screenshot](/screenshot.png?raw=true "Screenshot")
+
 # About
 This project was created for a Stripe PM interview written test, which is focused on the [Stripe Payment Intents integration](https://stripe.com/docs/payments/accept-a-payment#web). It contains both a `client` and `server` component. 
 * The `client` was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), and then built following the [client-side instructions here](https://stripe.com/docs/payments/accept-a-payment#web).
